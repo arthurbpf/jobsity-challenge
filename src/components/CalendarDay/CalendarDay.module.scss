@@ -1,0 +1,18 @@
+@mixin container-style() {
+  display: flex;
+  min-width: 5rem;
+  min-height: 5rem;
+  padding: 0.4rem 0.8rem;
+  border-style: solid;
+  border-radius: 0.8rem;
+}
+
+.container {
+  @include container-style();
+  border-color: transparent;
+
+  &_selected {
+    @include container-style();
+    border-color: blue;
+  }
+}
