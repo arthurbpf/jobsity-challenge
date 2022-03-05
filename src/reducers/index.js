@@ -7,17 +7,29 @@ const reducers = {
         state.selectedDate = action.date;
         return state;
       case 'addReminder':
-        const { id, description, date, time, city } = action.payload;
+        let { id, description, date, time, city } = action.payload;
 
-        const newReminders = [...state.reminders, {
-          id,
-          description,
-          date,
-          time,
-          city
-        }]
-
-        state.reminders = newReminders;
+        state.reminders = [
+          ...state.reminders,
+          {
+            id,
+            description,
+            date,
+            time,
+            city
+          }
+        ];
+        return state;
+      case 'updateReminder':
+        const reminderIdx = state.reminders.findIndex(reminder => reminder.id === action.payload.id)
+        state.reminders[reminderIdx] = action.payload;
+        state.reminders = [...state.reminders];
+        console.log(state);
+        return state;
+      case 'deleteReminder':
+        state.reminders = state.reminders.filter(
+          (reminder) => reminder.id !== action.id
+        );
         return state;
       default:
         return state;

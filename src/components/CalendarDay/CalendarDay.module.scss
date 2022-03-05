@@ -1,3 +1,5 @@
+@import "../../sass/variables.scss";
+
 @mixin container-style() {
   display: flex;
   min-width: 5rem;
@@ -13,6 +15,10 @@
 
   &_selected {
     @include container-style();
-    border-color: blue;
+    border-color: $highlight-color;
   }
+}
+
+.inactive {
+  color: $secondary-color-fade;
 }

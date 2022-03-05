@@ -10,7 +10,7 @@ import {
   startOfWeek
 } from 'date-fns';
 import React, { useMemo } from 'react';
-import { useDispatch, useSelector , useStore} from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import CalendarDay from '../components/CalendarDay';
 import RemindersPanel from '../components/RemindersPanel';
@@ -28,7 +28,21 @@ function Calendar(props) {
     const firstVisibleDate = startOfWeek(firstDateOfMonth);
     const lastVisibleDate = endOfWeek(endOfMonth(firstDateOfMonth));
 
-    const days = [];
+    const weekDays = [
+      'Sun',
+      'Mon',
+      'Tue',
+      'Wed',
+      'Thu',
+      'Fri',
+      'Sat'
+    ];
+
+    const days = weekDays.map((day) => (
+      <div className={styles.calendar_header_container}>
+        <h4>{day}</h4>
+      </div>
+    ));
 
     for (
       let d = firstVisibleDate;
@@ -37,7 +51,7 @@ function Calendar(props) {
     ) {
       const day = new Date(d);
 
-      const isActive = !isSameMonth(d, firstDateOfMonth);
+      const isActive = isSameMonth(d, firstDateOfMonth);
       const isSelected = isSameDay(d, selectedDate);
 
       days.push(
@@ -65,12 +79,19 @@ function Calendar(props) {
   };
 
   return (
-      <div>
-        <input type="month" value={format(firstDateOfMonth, 'yyyy-MM')} onChange={handleMonthChange} />
-
-        <div className={styles.calendar_container}>{calendarDays}</div>
-        <RemindersPanel />
+    <div className={styles.main_container}>
+      <div className={styles.header_container}>
+        <h1>Calendar</h1>
+        <input
+          type="month"
+          value={format(firstDateOfMonth, 'yyyy-MM')}
+          onChange={handleMonthChange}
+        />
       </div>
+
+      <div className={styles.calendar_container}>{calendarDays}</div>
+      <RemindersPanel />
+    </div>
   );
 }
 

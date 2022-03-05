@@ -1,4 +1,40 @@
+@import './variables.scss';
+
+.main_container {
+  min-height: 100vh;
+  min-width: 100vw;
+  padding: 3rem;
+  background-color: $background-color;
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  input,
+  label {
+    color: $secondary-color;
+  }
+}
+
+.header_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
 .calendar_container {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto;
+  background-color: $background-color-light;
+  border-radius: 0.8rem;
+  padding: 2em;
+  margin-bottom: 2em;
+
+  .calendar_header_container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2em;
+  }
 }
