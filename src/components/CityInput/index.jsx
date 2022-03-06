@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 
-const CityInput = ({ onChange, value }) => {
+const CityInput = ({ onChange, value, reminderId = '' }) => {
   const [cities, setCities] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(value || '');
 
   useEffect(() => {
     const timeout = setTimeout(async () => {
@@ -12,7 +12,7 @@ const CityInput = ({ onChange, value }) => {
       const url = 'http://api.openweathermap.org/geo/1.0/direct';
       const resp = await axios.get(url, {
         params: {
-          appid: '93144ae7e8092eb32cb0a21b42245784',
+          appid: process.env.REACT_APP_WEATHER_API_KEY,
           limit: 5,
           q: inputValue
         }
@@ -44,20 +44,20 @@ const CityInput = ({ onChange, value }) => {
     );
 
     setInputValue(value);
-    onChange(city);
+    onChange(city || {});
   };
 
   return (
     <>
       <input
         type="text"
-        list="cities"
-        value={value}
+        list={`cities${reminderId}`}
+        value={inputValue}
         onChange={handleInputChange}
       />
-      <datalist id="cities">
-        {options.map((opt) => (
-          <option>{opt}</option>
+      <datalist id={`cities${reminderId}`}>
+        {options.map((opt, idx) => (
+          <option key={idx}>{opt}</option>
         ))}
       </datalist>
     </>
