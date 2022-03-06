@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { format, isSameDay } from 'date-fns';
+import { isSameDay } from 'date-fns';
 import { BiTrash } from 'react-icons/bi';
 import { RiAddCircleLine } from 'react-icons/ri';
+import CityInput from '../CityInput';
 
 import styles from './RemindersPanel.module.scss';
 
@@ -67,17 +68,17 @@ const RemindersPanel = () => {
               }}
             />
           </div>
+
           <div className={styles.field_container}>
             <label>City</label>
-            <input
-              type="text"
-              onChange={(event) => {
-                setCity(event.target.value);
+            <CityInput
+              onChange={(value) => {
+                setCity(value);
               }}
             />
           </div>
 
-          <div className={styles.forecast_icon}/>
+          <div className={styles.forecast_icon} />
 
           <button onClick={handleAddNewReminder}>
             <RiAddCircleLine />
@@ -88,42 +89,43 @@ const RemindersPanel = () => {
           .filter((reminder) => isSameDay(selectedDate, reminder.date))
           .map((reminder) => (
             <div className={styles.reminder_card}>
-          <div className={styles.field_container}>
-            <label>Description</label>
-              <input
-                type="text"
-                maxLength={30}
-                value={reminder.description}
-                onChange={(event) => {
-                  reminder.description = event.target.value;
-                  handleUpdateReminder(reminder);
-                }}
-              />
-          </div>
+              <div className={styles.field_container}>
+                <label>Description</label>
+                <input
+                  type="text"
+                  maxLength={30}
+                  value={reminder.description}
+                  onChange={(event) => {
+                    reminder.description = event.target.value;
+                    handleUpdateReminder(reminder);
+                  }}
+                />
+              </div>
 
-          <div className={styles.field_container}>
-            <label>Time</label>
-              <input
-                type="time"
-                value={reminder.time}
-                onChange={(event) => {
-                  reminder.time = event.target.value;
-                  handleUpdateReminder(reminder);
-                }}
-              />
-          </div>
+              <div className={styles.field_container}>
+                <label>Time</label>
+                <input
+                  type="time"
+                  value={reminder.time}
+                  onChange={(event) => {
+                    reminder.time = event.target.value;
+                    handleUpdateReminder(reminder);
+                  }}
+                />
+              </div>
 
-          <div className={styles.field_container}>
-            <label>City</label>
-              <input
-                type="text"
-                value={reminder.city}
-                onChange={(event) => {
-                  reminder.city = event.target.value;
-                  handleUpdateReminder(reminder);
-                }}
-              />
-          </div>
+              <div className={styles.field_container}>
+                <label>City</label>
+                <CityInput
+                  value={`${reminder.city.name}, ${reminder.city.state || '?'}, ${reminder.city.country}`}
+                  onChange={(value) => {
+                    reminder.city = value;
+                    handleUpdateReminder(reminder);
+                  }}
+                />
+              </div>
+
+              <div className={styles.forecast_icon} />
 
               <button onClick={() => handleDeleteReminder(reminder.id)}>
                 <BiTrash />
