@@ -20,7 +20,6 @@ const ForecastIcon = ({ lat, lon, date }) => {
 
   useEffect(async () => {
     if (!lat || !lon || !date) return;
-
     const forecast = await axios.get(
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${format(
         date,
@@ -40,7 +39,7 @@ const ForecastIcon = ({ lat, lon, date }) => {
 
     setIconName(dayConditions.icon);
     setDescription(dayConditions.description);
-  });
+  }, []);
 
   const icon = useMemo(() => {
     switch (iconName) {

@@ -24,7 +24,6 @@ const reducers = {
         const reminderIdx = state.reminders.findIndex(reminder => reminder.id === action.payload.id)
         state.reminders[reminderIdx] = action.payload;
         state.reminders = [...state.reminders];
-        console.log(state);
         return state;
       case 'deleteReminder':
         state.reminders = state.reminders.filter(

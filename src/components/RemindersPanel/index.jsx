@@ -106,7 +106,7 @@ const RemindersPanel = () => {
           </button>
         </div>
       ));
-  });
+  }, [reminders]);
 
   return (
     <div className={styles.main_container}>
