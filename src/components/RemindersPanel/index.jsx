@@ -46,77 +46,91 @@ const RemindersPanel = () => {
     <div className={styles.main_container}>
       <h2>Reminders</h2>
 
-      <div className={styles.new_reminder_container}>
-        <label>Description</label>
-        <input
-          type="text"
-          maxLength={30}
-          onChange={(event) => {
-            setDescription(event.target.value);
-          }}
-        />
-
-        <label>Time</label>
-        <input
-          type="time"
-          onChange={(event) => {
-            setTime(event.target.value);
-          }}
-        />
-
-        <label>City</label>
-        <input
-          type="text"
-          onChange={(event) => {
-            setCity(event.target.value);
-          }}
-        />
-
-        <button onClick={handleAddNewReminder}>
-          <RiAddCircleLine />
-        </button>
-      </div>
-
-      {reminders
-        .filter((reminder) => isSameDay(selectedDate, reminder.date))
-        .map((reminder) => (
-          <>
+      <div className={styles.reminders_container}>
+        <div className={styles.reminder_card}>
+          <div className={styles.field_container}>
             <label>Description</label>
             <input
               type="text"
               maxLength={30}
-              value={reminder.description}
               onChange={(event) => {
-                reminder.description = event.target.value;
-                handleUpdateReminder(reminder);
+                setDescription(event.target.value);
               }}
             />
-
+          </div>
+          <div className={styles.field_container}>
             <label>Time</label>
             <input
               type="time"
-              value={reminder.time}
               onChange={(event) => {
-                reminder.time = event.target.value;
-                handleUpdateReminder(reminder);
+                setTime(event.target.value);
               }}
             />
-
+          </div>
+          <div className={styles.field_container}>
             <label>City</label>
             <input
               type="text"
-              value={reminder.city}
               onChange={(event) => {
-                reminder.city = event.target.value;
-                handleUpdateReminder(reminder);
+                setCity(event.target.value);
               }}
             />
+          </div>
 
-            <button onClick={() => handleDeleteReminder(reminder.id)}>
-              <BiTrash />
-            </button>
-          </>
-        ))}
+          <div className={styles.forecast_icon}/>
+
+          <button onClick={handleAddNewReminder}>
+            <RiAddCircleLine />
+          </button>
+        </div>
+
+        {reminders
+          .filter((reminder) => isSameDay(selectedDate, reminder.date))
+          .map((reminder) => (
+            <div className={styles.reminder_card}>
+          <div className={styles.field_container}>
+            <label>Description</label>
+              <input
+                type="text"
+                maxLength={30}
+                value={reminder.description}
+                onChange={(event) => {
+                  reminder.description = event.target.value;
+                  handleUpdateReminder(reminder);
+                }}
+              />
+          </div>
+
+          <div className={styles.field_container}>
+            <label>Time</label>
+              <input
+                type="time"
+                value={reminder.time}
+                onChange={(event) => {
+                  reminder.time = event.target.value;
+                  handleUpdateReminder(reminder);
+                }}
+              />
+          </div>
+
+          <div className={styles.field_container}>
+            <label>City</label>
+              <input
+                type="text"
+                value={reminder.city}
+                onChange={(event) => {
+                  reminder.city = event.target.value;
+                  handleUpdateReminder(reminder);
+                }}
+              />
+          </div>
+
+              <button onClick={() => handleDeleteReminder(reminder.id)}>
+                <BiTrash />
+              </button>
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

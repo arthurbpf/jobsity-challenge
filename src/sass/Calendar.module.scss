@@ -6,13 +6,14 @@
   padding: 3rem;
   background-color: $background-color;
 
-  p,
+  @include breakpoint(xs) {
+    padding: 1rem;
+  }
+
   h1,
   h2,
   h3,
-  h4,
-  input,
-  label {
+  h4 {
     color: $secondary-color;
   }
 }
@@ -26,11 +27,22 @@
 
 .calendar_container {
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto;
+  grid-template-columns: repeat(7, 14%);
+  grid-gap: 0.5rem;
   background-color: $background-color-light;
   border-radius: 0.8rem;
   padding: 2em;
   margin-bottom: 2em;
+
+  @include breakpoint(xs) {
+    grid-gap: 0.2rem;
+    padding: 1rem;
+  }
+
+  @include breakpoint(xs) {
+    grid-gap: 0.2rem;
+    padding: 1rem;
+  }
 
   .calendar_header_container {
     display: flex;

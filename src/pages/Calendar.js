@@ -4,13 +4,15 @@ import {
   endOfWeek,
   format,
   formatISO,
+  isBefore,
   isSameDay,
   isSameMonth,
   startOfMonth,
-  startOfWeek
+  startOfWeek,
+  startOfDay
 } from 'date-fns';
-import React, { useMemo } from 'react';
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import React, { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CalendarDay from '../components/CalendarDay';
 import RemindersPanel from '../components/RemindersPanel';
@@ -19,24 +21,15 @@ import styles from '../sass/Calendar.module.scss';
 function Calendar(props) {
   const dispatch = useDispatch();
   const selectedDate = useSelector((state) => state.calendar.selectedDate);
-  const firstDateOfMonth = useMemo(
-    () => startOfMonth(selectedDate),
-    [selectedDate]
+  const [firstDateOfMonth, setFirstDateOfMonth] = useState(
+    startOfMonth(new Date())
   );
 
   const calendarDays = useMemo(() => {
     const firstVisibleDate = startOfWeek(firstDateOfMonth);
     const lastVisibleDate = endOfWeek(endOfMonth(firstDateOfMonth));
 
-    const weekDays = [
-      'Sun',
-      'Mon',
-      'Tue',
-      'Wed',
-      'Thu',
-      'Fri',
-      'Sat'
-    ];
+    const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     const days = weekDays.map((day) => (
       <div className={styles.calendar_header_container}>
@@ -51,7 +44,9 @@ function Calendar(props) {
     ) {
       const day = new Date(d);
 
-      const isActive = isSameMonth(d, firstDateOfMonth);
+      const isActive =
+        isSameMonth(d, firstDateOfMonth) &&
+        !isBefore(d, startOfDay(new Date()));
       const isSelected = isSameDay(d, selectedDate);
 
       days.push(
@@ -75,6 +70,7 @@ function Calendar(props) {
     if (!inputDate) return;
 
     const newDate = add(inputDate, { minutes: inputDate.getTimezoneOffset() });
+    setFirstDateOfMonth(newDate);
     dispatch({ type: 'selectDate', date: newDate });
   };
 

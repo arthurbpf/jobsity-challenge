@@ -1,17 +1,19 @@
-@import "../../sass/variables.scss";
+@import '../../sass/variables.scss';
 
 @mixin container-style() {
   display: flex;
-  min-width: 5rem;
+  flex-direction: column;
+  justify-content: space-between;
   min-height: 5rem;
-  padding: 0.4rem 0.8rem;
+  max-height: 7rem;
+  padding: 0.4rem 0.4rem;
   border-style: solid;
   border-radius: 0.8rem;
 }
 
 .container {
   @include container-style();
-  border-color: transparent;
+  border-color: $secondary-color-fade;
 
   &_selected {
     @include container-style();
@@ -19,6 +21,31 @@
   }
 }
 
-.inactive {
+.inactive_text {
   color: $secondary-color-fade;
+}
+
+.highlighted_text {
+  color: $highlight-color;
+}
+
+b.reminders_container {
+  margin:0;
+  padding:0;
+  width: fit-content;
+  overflow:hidden;
+}
+
+b.day_marker {
+  height: 2em;
+  width: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+b.today_marker {
+  border-radius: 50%;
+  background-color: $highlight-color;
+  color: $background-color-light;
 }
