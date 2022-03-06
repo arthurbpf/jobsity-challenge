@@ -32,7 +32,7 @@ function Calendar(props) {
     const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     const days = weekDays.map((day) => (
-      <div className={styles.calendar_header_container}>
+      <div key={day} className={styles.calendar_header_container}>
         <h4>{day}</h4>
       </div>
     ));

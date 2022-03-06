@@ -13,10 +13,10 @@ const RemindersPanel = () => {
   const reminders = useSelector((state) => state.calendar.reminders);
   const dispatch = useDispatch();
 
-  const [description, setDescription] = useState();
-  const [time, setTime] = useState();
-  const [city, setCity] = useState();
-  const [cityInputValue, setCityInputValue] = useState();
+  const [description, setDescription] = useState('');
+  const [time, setTime] = useState('');
+  const [city, setCity] = useState({});
+  const [cityInputValue, setCityInputValue] = useState('');
 
   const handleAddNewReminder = () => {
     dispatch({
@@ -29,6 +29,7 @@ const RemindersPanel = () => {
         city: city || {}
       }
     });
+
     setDescription('');
     setTime('');
     setCity({});
@@ -83,10 +84,14 @@ const RemindersPanel = () => {
             <label>City</label>
             <CityInput
               reminderId={reminder.id}
-              value={`${reminder.city.name}, ${reminder.city.state || '?'}, ${
-                reminder.city.country
-              }`}
-              onChange={(value) => {
+              value={
+                Object.entries(reminder.city).length !== 0
+                  ? `${reminder.city.name}, ${reminder.city.state || '?'}, ${
+                      reminder.city.country
+                    }`
+                  : ''
+              }
+              onChange={(event, value) => {
                 reminder.city = value;
                 handleUpdateReminder(reminder);
               }}
@@ -106,7 +111,7 @@ const RemindersPanel = () => {
           </button>
         </div>
       ));
-  }, [reminders]);
+  }, [reminders, selectedDate]);
 
   return (
     <div className={styles.main_container}>
@@ -140,7 +145,8 @@ const RemindersPanel = () => {
             <label>City</label>
             <CityInput
               value={cityInputValue}
-              onChange={(value) => {
+              onChange={(event, value) => {
+                setCityInputValue(event.target.value);
                 setCity(value);
               }}
             />

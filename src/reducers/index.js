@@ -21,7 +21,9 @@ const reducers = {
         ];
         return state;
       case 'updateReminder':
-        const reminderIdx = state.reminders.findIndex(reminder => reminder.id === action.payload.id)
+        const reminderIdx = state.reminders.findIndex(
+          (reminder) => reminder.id === action.payload.id
+        );
         state.reminders[reminderIdx] = action.payload;
         state.reminders = [...state.reminders];
         return state;

@@ -24,10 +24,15 @@ const CityInput = ({ onChange, value, reminderId = '' }) => {
     return () => clearTimeout(timeout);
   }, [inputValue]);
 
+  useEffect(()=>{
+    if (value == '') setInputValue('')
+
+  },[value])
+
   const options = useMemo(
     () => [
       ...new Set(
-        cities.map((city) => `${city.name}, ${city.state}, ${city.country}`)
+        cities.map((city) => `${city.name}, ${city.state || '?'}, ${city.country}`)
       )
     ],
     [cities]
@@ -39,12 +44,12 @@ const CityInput = ({ onChange, value, reminderId = '' }) => {
     const city = cities.find(
       (city) =>
         city.name === keys[0] &&
-        city.state === keys[1] &&
+        (city.state === keys[1] || city.state == undefined) &&
         city.country === keys[2]
     );
 
     setInputValue(value);
-    onChange(city || {});
+    onChange(event, city || {});
   };
 
   return (
