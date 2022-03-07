@@ -106,7 +106,10 @@ const RemindersPanel = () => {
             />
           </div>
 
-          <button onClick={() => handleDeleteReminder(reminder.id)}>
+          <button
+            className={styles.delete_reminder}
+            onClick={() => handleDeleteReminder(reminder.id)}
+          >
             <BiTrash />
           </button>
         </div>
@@ -154,7 +157,10 @@ const RemindersPanel = () => {
 
           <div className={styles.forecast_icon} />
 
-          <button onClick={handleAddNewReminder}>
+          <button
+            className={styles.create_reminder}
+            onClick={handleAddNewReminder}
+          >
             <RiAddCircleLine />
           </button>
         </div>

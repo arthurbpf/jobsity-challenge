@@ -39,6 +39,31 @@
       height: 3rem;
       font-size: 20px;
     }
+
+    @mixin button(){
+      display:flex;
+      align-items: center;
+      justify-content:center;
+      color: white;
+      border:none;
+      border-radius: 0.8rem;
+      height: 2rem;
+
+      svg{
+        height: 1.5rem;
+      }
+
+    }
+
+    button.create_reminder {
+      @include button();
+      background-color: $highlight-color;
+    }
+
+    button.delete_reminder {
+      @include button();
+      background-color: #e82a2a;
+    }
   }
 
   .field_container {
