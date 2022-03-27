@@ -9,7 +9,7 @@ const CityInput = ({ onChange, value, reminderId = '' }) => {
     const timeout = setTimeout(async () => {
       if (!inputValue || options.includes(inputValue)) return;
 
-      const url = 'http://api.openweathermap.org/geo/1.0/direct';
+      const url = 'https://api.openweathermap.org/geo/1.0/direct';
       const resp = await axios.get(url, {
         params: {
           appid: process.env.REACT_APP_WEATHER_API_KEY,
