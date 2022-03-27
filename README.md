@@ -3,7 +3,7 @@
 </div>
 
 # React Challenge
-The app is hosted on heroku, you can find it by clicking [here](https://jobsity-frontend-challenge.herokuapp.com/)
+The app is hosted on Vercel, you can find it by clicking [here](https://jobsity-challenge-self.vercel.app/)
 
 ## How to deploy
 
